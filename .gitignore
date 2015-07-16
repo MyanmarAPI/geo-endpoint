@@ -1,0 +1,7 @@
+/lumen.log
+/vendor
+.env
+composer.lock
+.DS_Store
+Thumbs.db
+.idea/*
