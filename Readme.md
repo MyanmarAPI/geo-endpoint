@@ -47,4 +47,8 @@ and page too.
 
 ### LICENSE
 
+### DOC
+
+[More Details For Geo](http://myanmarapi.github.io/endpoints/geolocation.html)
+
 ##### GNU Lesser General Public License v3 (LGPL-3)
