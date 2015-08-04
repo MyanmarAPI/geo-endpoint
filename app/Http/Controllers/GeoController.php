@@ -66,13 +66,13 @@ class GeoController extends Controller
     {
         if ($name = $request->input('name')) {
 
-            $this->model = $this->model->like('properties.DistrictName', $name);
+            $this->model = $this->model->like('properties.ST', $name);
 
         }
 
         if ($id = $request->input('id')) {
 
-            $this->model = $this->model->where('properties.DistrictID', (int) $id);
+            $this->model = $this->model->where('properties.OBJECTID', (int) $id);
         }
 
         return $this->model->paginate();
