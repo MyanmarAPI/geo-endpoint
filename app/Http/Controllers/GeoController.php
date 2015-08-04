@@ -76,9 +76,9 @@ class GeoController extends Controller
 
         }
 
-        if ($id = $request->input('id')) {
+        if ($object_id = $request->input('object_id')) {
 
-            $this->model = $this->model->where('properties.OBJECTID', (int) $id);
+            $this->model = $this->model->where('properties.OBJECTID', (int) $object_id);
         }
 
         if ($st_pcode = $request->input('st_pcode')) {
