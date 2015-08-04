@@ -64,15 +64,31 @@ class GeoController extends Controller
      */
     protected function filter($request)
     {
-        if ($name = $request->input('name')) {
+        if ($st_name = $request->input('st_name')) {
 
-            $this->model = $this->model->like('properties.ST', $name);
+            $this->model = $this->model->like('properties.ST', $st_name);
+
+        }
+
+        if ($dt_name = $request->input('dt_name')) {
+
+            $this->model = $this->model->like('properties.DT', $dt_name);
 
         }
 
         if ($id = $request->input('id')) {
 
             $this->model = $this->model->where('properties.OBJECTID', (int) $id);
+        }
+
+        if ($st_pcode = $request->input('st_pcode')) {
+
+            $this->model = $this->model->where('properties.ST_PCODE', $st_pcode);
+        }
+
+        if ($dt_pcode = $request->input('dt_pcode')) {
+
+            $this->model = $this->model->where('properties.DT_PCODE', $dt_pcode);
         }
 
         return $this->model->paginate();
