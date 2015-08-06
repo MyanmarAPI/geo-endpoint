@@ -146,16 +146,16 @@ abstract class AbstractModel
      * Get items in pagination form
      * @return LengthAwarePaginator
      */
-    public function paginate()
+    public function paginate(array $field = [])
     {
         $page = (int)app('request')->input('page', 1);
         $perPage = (int)app('request')->input('per_page', 15);
         $skip = $perPage * ($page - 1);
-
+        
         $result = $this->getCollection()
                         ->limit($perPage)
                         ->skip($skip)
-                        ->get();
+                        ->get($field);
 
         return new LengthAwarePaginator($result, $this->getCollection()->count(), $perPage, $page);
     }

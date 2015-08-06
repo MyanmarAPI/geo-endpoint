@@ -14,12 +14,19 @@ class GeoTransformer extends TransformerAbstract implements TransformerInterface
 
 	public function transform($geo)
     {
-    	return [
+        $result = [
             'id'            => (string)$geo['_id'],
             'type'          => $geo['type'],
             'properties'    => $geo['properties'],
-            'geometry'      => $geo['geometry'],
+            
         ];
+
+        if ($geo['geometry']) {
+            
+            $result['geometry'] = $geo['geometry'];
+        }
+
+    	return $result;
     }
 	
 }
