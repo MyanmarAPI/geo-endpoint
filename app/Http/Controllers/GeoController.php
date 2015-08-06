@@ -91,13 +91,14 @@ class GeoController extends Controller
             $this->model = $this->model->where('properties.DT_PCODE', $dt_pcode);
         }
 
-        if ($withGeo = $request->input('with_geo'))
+        if ($noGeo = $request->input('no_geo'))
         {
-            if ($withGeo == 'true') {
-                return $this->model->paginate();
+            if ($noGeo == 'true') {
+
+                return $this->model->paginate(['type','properties']);
             }
         }
 
-        return $this->model->paginate(['type','properties']);
+        return $this->model->paginate();
     }
 }
