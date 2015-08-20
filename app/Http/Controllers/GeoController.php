@@ -49,7 +49,7 @@ class GeoController extends Controller
     {
         $lat = (float) $request->input('lat');
 
-        $long = (float) $request->input('long');
+        $long = (float) $request->input('lon');
 
         $data = $this->transform($this->model->findIntersects($long, $lat), new GeoTransformer(), true);
         
