@@ -1,9 +1,9 @@
 <?php 
 
 return [
-    'host'      => 'localhost',
-    'port'      => 27017,
-    'database'  => 'elecapi',
-    'user'      => '',
-    'password'  => ''
+    'host'      => env('DB_HOST'),
+    'port'      => env('DB_PORT', '27017'),
+    'database'  => env('DB_DATABASE'),
+    'user'      => env('DB_USERNAME'),
+    'password'  => env('DB_PASSWORD')
 ];
