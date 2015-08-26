@@ -5,13 +5,13 @@ use App\Model\AbstractModel;
 use Illuminate\Support\Collection;
 
 /**
-* Model for the Geo API Application.
+* Model for the LowerHouse API Application.
 *
 * @package Geo Endpoint
 * @license
 * @author Thet Paing Oo <thetpaing@hexcores.com>
 */
-class GeoModel extends AbstractModel
+class LowerHouseModel extends AbstractModel
 {
     /**
      * model name
@@ -19,11 +19,11 @@ class GeoModel extends AbstractModel
      */
     public function getCollectionName()
     {
-        return 'geo_api';
+        return 'lower_api';
     }
 
     /**
-     * create geo model
+     * create lowerhouse model
      * @param  array  $data [description]
      * @return \Hexcores\MongoLite\Document|bool
      */

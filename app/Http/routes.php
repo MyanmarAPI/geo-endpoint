@@ -20,5 +20,13 @@ $app->group(['middleware' => 'auth','prefix'=>'geo/v1','namespace' => 'App\Http\
     $app->get('/district','GeoController@district');
 
     $app->get('/district/find','GeoController@find');
+
+    $app->get('/upperhouse','UpperHouseController@index');
+
+    $app->get('/upperhouse/find','UpperHouseController@find');
+
+    $app->get('/lowerhouse','LowerHouseController@index');
+
+    $app->get('/lowerhouse/find','LowerHouseController@find');
     
 });

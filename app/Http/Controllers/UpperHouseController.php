@@ -2,17 +2,17 @@
 
 use Illuminate\Http\Request;
 
-use App\Model\GeoModel as Geo;
+use App\Model\UpperHouseModel as Upper;
 use App\Transformers\GeoTransformer;
 
 /**
-* Controller for the Geo Location API Application.
+* Controller for the Upper House Location API Application.
 *
 * @package Geo Endpoint
 * @license
 * @author Thet Paing Oo <thetpaing@hexcores.com>
 */
-class GeoController extends Controller
+class UpperHouseController extends Controller
 {
     /**
      * $model
@@ -22,20 +22,20 @@ class GeoController extends Controller
 
     /**
      * construct method
-     * @param App\Model\GeoModel  $model          
+     * @param App\Model\UpperHouseModel  $model          
      */
-	function __construct(Geo $model)
+	function __construct(Upper $model)
 	{
 		$this->model = $model;
 	}
 
 
     /**
-     * Index Function for geo api ( get all geo locaction of myanmar)
+     * Index Function for geo api ( get all UpperHouse locaction of myanmar)
      * @param  Illuminate\Http\Request $request
      * @return Hexcores\Api\Facades\Response
      */
-    public function district(Request $request)
+    public function index(Request $request)
     {
         $test = $this->filter($request);
 
@@ -43,6 +43,7 @@ class GeoController extends Controller
 
         return response_ok($data);
     }
+
 
     /**
      * Find By longitude latitude
@@ -62,7 +63,7 @@ class GeoController extends Controller
     }
 
     /**
-     * Filter For Geo
+     * Filter For UpperHouse
      * @param  Illuminate\Http\Request $request
      * @return LengthAwarePaginator
      */
@@ -74,25 +75,9 @@ class GeoController extends Controller
 
         }
 
-        if ($dt_name = $request->input('dt_name')) {
-
-            $this->model = $this->model->like('properties.DT', $dt_name);
-
-        }
-
-        if ($object_id = $request->input('object_id')) {
-
-            $this->model = $this->model->where('properties.OBJECTID', (int) $object_id);
-        }
-
         if ($st_pcode = $request->input('st_pcode')) {
 
             $this->model = $this->model->where('properties.ST_PCODE', $st_pcode);
-        }
-
-        if ($dt_pcode = $request->input('dt_pcode')) {
-
-            $this->model = $this->model->where('properties.DT_PCODE', $dt_pcode);
         }
 
         if ($noGeo = $request->input('no_geo'))
