@@ -37,8 +37,6 @@ class UpperHouseController extends Controller
      */
     public function index(Request $request)
     {
-        $test = $this->filter($request);
-
         $data = $this->transform($this->filter($request), new GeoTransformer(), true);
 
         return response_ok($data);
@@ -89,5 +87,22 @@ class UpperHouseController extends Controller
         }
 
         return $this->model->paginate();
+    }
+
+    /**
+     * get Single data of UpperHouse geo location by mongo id
+     * @param  string $id
+     * @return Hexcores\Api\Facades\Response
+     */
+    public function getById($id)
+    {
+        $geo = $this->model->find($id);
+
+        if (!$geo) {
+
+            return response_missing();
+        }
+
+        return response_ok($this->transform($geo, new GeoTransformer()));
     }
 }

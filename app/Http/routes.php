@@ -21,12 +21,18 @@ $app->group(['middleware' => 'auth','prefix'=>'geo/v1','namespace' => 'App\Http\
 
     $app->get('/district/find','GeoController@find');
 
+    $app->get('/district/{id}','GeoController@getById');
+
     $app->get('/upperhouse','UpperHouseController@index');
 
     $app->get('/upperhouse/find','UpperHouseController@find');
 
+    $app->get('/upperhouse/{id}','UpperHouseController@getById');
+
     $app->get('/lowerhouse','LowerHouseController@index');
 
     $app->get('/lowerhouse/find','LowerHouseController@find');
+
+    $app->get('/lowerhouse/{id}','LowerHouseController@getById');
     
 });
