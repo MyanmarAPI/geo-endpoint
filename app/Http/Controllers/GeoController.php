@@ -53,7 +53,9 @@ class GeoController extends Controller
 
         $long = (float) $request->input('lon');
 
-        $data = $this->transform($this->model->findIntersects($long, $lat), new GeoTransformer(), true);
+        $noGeo = $request->input('no_geo',false);
+
+        $data = $this->transform($this->model->findIntersects($long, $lat ,$noGeo), new GeoTransformer(), true);
         
 
         return response_ok($data);
@@ -111,7 +113,9 @@ class GeoController extends Controller
      */
     public function getById($id)
     {
-        $geo = $this->model->find($id);
+        $noGeo = app('request')->input('no_geo',false);
+
+        $geo = $this->model->getById($id, $noGeo);
 
         if (!$geo) {
 

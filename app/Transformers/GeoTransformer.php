@@ -20,8 +20,8 @@ class GeoTransformer extends TransformerAbstract implements TransformerInterface
             'properties'    => $geo['properties'],
             
         ];
-
-        if ($geo['geometry']) {
+        
+        if (isset($geo['geometry'])) {
             
             $result['geometry'] = $geo['geometry'];
         }
