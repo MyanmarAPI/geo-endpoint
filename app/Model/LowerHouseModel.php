@@ -32,7 +32,14 @@ class LowerHouseModel extends AbstractModel
         return $this->getCollection()->insert($data);
     }
 
-    public function findIntersects($long, $lat)
+    /**
+     * Find By longitude latitude with getoIntersects for LowerHouse
+     * @param  string $long
+     * @param  string $lat
+     * @param  boolean $noGeo
+     * @return array
+     */
+    public function findIntersects($long, $lat, $noGeo)
     {
         $this->getCollection()->collection()->ensureIndex(["geometry"=>"2dsphere"]);
         
@@ -49,9 +56,19 @@ class LowerHouseModel extends AbstractModel
 
         $cursor = $this->getCollection()->collection()->find($opt);
 
+        if ($noGeo) {
+
+            $cursor = $cursor->fields(['type' => true , 'properties' => true]);
+        }
+
         return ! is_null($cursor) ? $this->changeArray($cursor) : null;
     }
     
+    /**
+     * change mongocursor to array
+     * @param  MongoCursor $cursor
+     * @return array
+     */
     public function changeArray($cursor)
     {
         $results = [];
@@ -61,5 +78,24 @@ class LowerHouseModel extends AbstractModel
         }
 
         return $results;
+    }
+
+    /**
+     * get Single Geo Document By Id
+     * @param  string $id
+     * @param  boolean $noGeo
+     * @return \Hexcores\MongoLite\Document|bool
+     */
+    public function getById($id, $noGeo)
+    {
+        $data = $this->find($id);
+
+        if ($noGeo) {
+
+            $data->__unset('geometry');
+                
+        }
+
+        return $data;
     }
 }
