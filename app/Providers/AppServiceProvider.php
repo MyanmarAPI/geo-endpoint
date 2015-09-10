@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerCommands();
+        //
     }
 
     /**
@@ -26,19 +26,6 @@ class AppServiceProvider extends ServiceProvider
         $connection = MongoConnection::instance();
 
         $this->app->instance('connection', $connection);
-    }
-
-    /**
-     * Register all artisan commands
-     */
-    protected function registerCommands()
-    {
-        $commands = [
-            'App\Console\Commands\ImportCommand',
-            'App\Console\Commands\JsonImportCommand'
-        ];
-
-        $this->commands($commands);
     }
 
 }

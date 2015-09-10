@@ -14,9 +14,9 @@
  */
 
 use Illuminate\Console\Command;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Process\Process;
 
 class JsonImportCommand extends Command {
 
@@ -56,19 +56,16 @@ class JsonImportCommand extends Command {
 
 	/**
 	 * Run import command with process
-	 * @param  array $collections
 	 * @return void
 	 */
 	protected function import()
 	{
-		$collections = $this->input->getArgument('model');
+		$collection = $this->input->getArgument('model');
 
 		$path = $this->input->getArgument('path');
 
-		if ( ! app('files')->exists($path))
-		{
-			throw new \InvalidArgumentException("$path is doest not exit");
-			
+		if ( ! app('files')->exists($path)) {
+			throw new \InvalidArgumentException("$path is does not exit");
 		}
 
 		$host = $this->getMongoHost();
@@ -78,20 +75,19 @@ class JsonImportCommand extends Command {
 		$this->line('MongoDB Importing to ' . $db);
 
 		$command = 'mongoimport -h '.$host.' -d'.$db;
-
 		
-			$process = new Process($command . ' -c ' . $collections . ' < ' . $path);
+		$process = new Process($command . ' -c ' . $collection . ' < ' . $path);
 
-			$process->run();
+		$process->run();
 
-			if (!$process->isSuccessful()) 
-			{
-				$this->error('Error collection - ' . $collections);
+		if ( ! $process->isSuccessful()) 
+		{
+			$this->error('Error collection - ' . $collection);
 
-    			throw new \RuntimeException($process->getErrorOutput());
-			}
-			
-			$this->info('Import collection - ' . $collections);
+			throw new \RuntimeException($process->getErrorOutput());
+		}
+		
+		$this->info('Import collection - ' . $collection);
 
 		$this->info('Finish mongo import to database '. $db);
 	}
@@ -129,7 +125,7 @@ class JsonImportCommand extends Command {
 	{
 		return array(
 			['model', InputArgument::REQUIRED, 'Model name to set data'],
-			['path', InputArgument::REQUIRED, '--path="path/to/dir/file.json"  Directory which contain json data files to import']
+			['path', InputArgument::REQUIRED, '--path="path/to/dir/file.json"  Directory which contain json data file to import']
 		);
 	}
 

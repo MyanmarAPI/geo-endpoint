@@ -12,7 +12,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \Hexcores\Api\Console\ApiKeyGenerate::class
+        \Hexcores\Api\Console\ApiKeyGenerate::class,
+        \App\Console\Commands\ImportCommand::class,
+        \App\Console\Commands\JsonImportCommand::class
     ];
 
     /**
