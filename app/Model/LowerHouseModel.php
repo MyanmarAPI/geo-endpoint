@@ -56,7 +56,7 @@ class LowerHouseModel extends AbstractModel
 
         $cursor = $this->getCollection()->collection()->find($opt);
 
-        if ($noGeo) {
+        if ($noGeo == 'true') {
 
             $cursor = $cursor->fields(['type' => true , 'properties' => true]);
         }
@@ -90,7 +90,7 @@ class LowerHouseModel extends AbstractModel
     {
         $data = $this->find($id);
 
-        if ($noGeo) {
+        if ($noGeo == 'true') {
 
             $data->__unset('geometry');
                 

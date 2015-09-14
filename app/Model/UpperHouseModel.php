@@ -56,6 +56,11 @@ class UpperHouseModel extends AbstractModel
 
         $cursor = $this->getCollection()->collection()->find($opt);
 
+        if ($noGeo == 'true') {
+
+            $cursor = $cursor->fields(['type' => true , 'properties' => true]);
+        }
+
         return ! is_null($cursor) ? $this->changeArray($cursor) : null;
     }
         
@@ -86,7 +91,7 @@ class UpperHouseModel extends AbstractModel
     {
         $data = $this->find($id);
 
-        if ($noGeo) {
+        if ($noGeo == 'true') {
 
             $data->__unset('geometry');
                 
