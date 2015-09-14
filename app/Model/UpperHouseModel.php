@@ -39,7 +39,7 @@ class UpperHouseModel extends AbstractModel
      * @param  boolean $noGeo
      * @return array
      */
-    public function findIntersects($long, $lat)
+    public function findIntersects($long, $lat, $noGeo)
     {
         $this->getCollection()->collection()->ensureIndex(["geometry"=>"2dsphere"]);
         
