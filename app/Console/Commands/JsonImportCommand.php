@@ -67,7 +67,11 @@ class JsonImportCommand extends Command {
 		if ( ! app('files')->exists($path)) {
 			throw new \InvalidArgumentException("$path is does not exit");
 		}
-
+		$file=file_get_contents($path);
+		$json=json_decode($file);
+		$features=json_encode($json->features);
+		$tempfile=dirname($path).'/'.'mongo-'.basename($path);
+		file_put_contents($tempfile, $features);
 		$host = $this->getMongoHost();
 
 		$db = $this->getDatabaseName();
@@ -76,17 +80,18 @@ class JsonImportCommand extends Command {
 
 		$command = 'mongoimport -h '.$host.' -d'.$db;
 		
-		$process = new Process($command . ' -c ' . $collection . ' < ' . $path);
+		$process = new Process($command . ' -c ' . $collection . ' --file '. $tempfile . ' --jsonArray' );
 
 		$process->run();
 
 		if ( ! $process->isSuccessful()) 
 		{
+			unlink($tempfile);
 			$this->error('Error collection - ' . $collection);
 
 			throw new \RuntimeException($process->getErrorOutput());
 		}
-		
+		unlink($tempfile);
 		$this->info('Import collection - ' . $collection);
 
 		$this->info('Finish mongo import to database '. $db);
