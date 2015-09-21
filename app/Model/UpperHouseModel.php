@@ -99,4 +99,25 @@ class UpperHouseModel extends AbstractModel
 
         return $data;
     }
+
+    /**
+     * get Single Geo Document By AM_PCODE
+     * @param  string $pcode
+     * @param  string $noGeo
+     * @return \Hexcores\MongoLite\Document|bool
+     */
+    public function getByAM($pcode, $noGeo)
+    {
+        $field = [];
+
+        if ($noGeo == 'true') {
+
+            $field = ['type','properties'];
+                
+        }
+
+        $data = $this->getCollection()->collection()->findOne(['properties.AM_PCODE' => $pcode],$field);
+        
+        return $data;
+    }
 }

@@ -109,4 +109,32 @@ class UpperHouseController extends Controller
 
         return response_ok($this->transform($geo, new GeoTransformer()));
     }
+
+    /**
+     * get Single data of UpperHouse geo location by AM_PCODE
+     * @param  Request $request [description]
+     * @return Hexcores\Api\Facades\Response
+     */
+    public function getByAM(Request $request)
+    {
+        if ($request->input('am_pcode')) {
+
+            $pcode = strtoupper($request->input('am_pcode'));
+
+        }else {
+
+            return response_error('Require am_pcode param');
+        }
+
+        $noGeo = $request->input('no_geo', false);
+
+        $geo = $this->model->getByAM($pcode, $noGeo);
+
+        if (!$geo) {
+
+            return response_missing();
+        }
+
+        return response_ok($this->transform($geo, new GeoTransformer()));
+    }
 }

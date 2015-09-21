@@ -27,6 +27,8 @@ $app->group(['middleware' => 'auth','prefix'=>'geo/v1','namespace' => 'App\Http\
 
     $app->get('/upperhouse/find','UpperHouseController@find');
 
+    $app->get('/upperhouse/ampcode','UpperHouseController@getByAM');
+
     $app->get('/upperhouse/{id}','UpperHouseController@getById');
 
     $app->get('/lowerhouse','LowerHouseController@index');
