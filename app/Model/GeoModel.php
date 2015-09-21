@@ -41,7 +41,7 @@ class GeoModel extends AbstractModel
      */
     public function findIntersects($long, $lat, $noGeo)
     {
-        $this->getCollection()->collection()->ensureIndex(["geometry"=>"2dsphere"]);
+        //$this->getCollection()->collection()->ensureIndex(["geometry"=>"2dsphere"]);
         
         $opt = [ 'geometry'  =>
                     ['$geoIntersects' => [
