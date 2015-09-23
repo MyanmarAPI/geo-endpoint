@@ -72,12 +72,14 @@ class JsonImportCommand extends Command {
 		$features=json_encode($json->features);
 		$tempfile=dirname($path).'/'.'mongo-'.basename($path);
 		file_put_contents($tempfile, $features);
+		
 		$host = $this->getMongoHost();
 
 		$db = $this->getDatabaseName();
 
 		$this->line('MongoDB Importing to ' . $db);
-
+		
+		mongo_lite($collection)->collection()->createIndex(array('geometry' => '2dsphere'));
 		$command = 'mongoimport -h '.$host.' -d'.$db;
 		
 		$process = new Process($command . ' -c ' . $collection . ' --file '. $tempfile . ' --jsonArray' );
